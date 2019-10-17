@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Alien Zap!</title>
 </head>
+
 <body>
     <div class="flex-container">
         <div class="empty">
@@ -22,11 +24,11 @@
                 <h3>How to play :</h3>
                 <p>Zap all the aliens before they reach you.</p>
                 <ul>
-                <li><strong>Right Arrow</strong> - moves player right</li>
-                <li><strong>Left Arrow</strong> - moves player left</li>
-                <li><strong>Space Bar</strong> - shoots</li>
+                    <li><strong>Right Arrow</strong> - moves player right</li>
+                    <li><strong>Left Arrow</strong> - moves player left</li>
+                    <li><strong>Space Bar</strong> - shoots</li>
                 </ul>
-                <p>Click the button or press the Enter key to start. Good Luck!</p>
+                <p>Click the button or press the Enter key to start.<br>Good Luck!</p>
                 <button id="button" type="button" class="start-button" onclick='removeMessage()'>Play!</button>
             </div>
 
@@ -35,7 +37,7 @@
                 <p>Well done, you defeated all the Aliens!</p>
                 <button type="button" class="play-button" onclick='removeMessage()'>Next Round</button>
             </div>
-            
+
             <div id="lose-screen">
                 <h1 class="lose-title">Game Over</h1>
                 <p>The Aliens got you this time, better luck next time!</p>
@@ -53,4 +55,5 @@
 
     <script src="index.js"></script>
 </body>
+
 </html>

@@ -13,7 +13,7 @@ let rectArea = area.getBoundingClientRect();
 // Player ---------------
 let playerScore = 0;
 let speed = 8;
-let positionX = 327;
+let positionX = 340;
 player.style.left = positionX + 'px';
 
 let rectPlayer = player.getBoundingClientRect();
@@ -47,6 +47,7 @@ let gameRunning = false;
 
 // CLEAR MSG ON START BUTTON CLICK 
 let delayStart;
+
 function removeMessage() {
     instructions.style.transform = 'scale(0)'
     winScreen.style.transform = 'scale(0)'
@@ -57,6 +58,7 @@ function removeMessage() {
 
 //START THE GAME
 let runGameLoop;
+
 function startGame() {
     if (gameRunning == false) {
         //initialize
@@ -64,7 +66,7 @@ function startGame() {
         alienPositionX = 0;
         alienPositionY = 0;
         alienGrid.style.left = alienPositionX + 'px';
-        alienGrid.style.top = alienPositionY + 'px'; 
+        alienGrid.style.top = alienPositionY + 'px';
         totalVerticalMovement = 0;
         alienSpeed = 5 + alienSpeedLevelup;
         runGameLoop = setInterval(gameLoop, 20);
@@ -92,8 +94,7 @@ function endGame(hasWon) {
         winScreen.style.transform = 'scale(1)'
         alienSpeedLevelup += 1.6;
         updateScore();
-    }
-    else { 
+    } else {
         // display defeat text
         loseScreen.style.transform = 'scale(1)'
         alienSpeedLevelup = 0;
@@ -103,7 +104,7 @@ function endGame(hasWon) {
 
 // Update the score board tally
 function updateScore() {
-    playerScore ++;
+    playerScore++;
     tally.innerHTML = playerScore;
 }
 
@@ -118,23 +119,20 @@ function moveAliens() {
             state = 1;
         }
         alienGrid.style.left = alienPositionX + 'px';
-    }
-    else if (state == 1 || state == 3) {
+    } else if (state == 1 || state == 3) {
         // moving down
         alienPositionY += alienSpeed / 2;
         totalVerticalMovement += alienSpeed / 2;
-        if (totalVerticalMovement >= verticalMovement ) {
+        if (totalVerticalMovement >= verticalMovement) {
             totalVerticalMovement = 0;
             if (state == 1) {
                 state = 2;
-            }
-            else if (state == 3) {
+            } else if (state == 3) {
                 state = 0;
             }
         }
         alienGrid.style.top = alienPositionY + 'px';
-    }
-    else if (state == 2) {
+    } else if (state == 2) {
         alienPositionX -= alienSpeed;
         // test if we reached limit/wall
         if (alienPositionX <= 0) {
@@ -150,11 +148,10 @@ function movePlayer() {
     if (rightDown && positionX <= playerHorizSpace) {
         positionX += speed
         player.style.left = positionX + 'px'
-    } 
-    else if (leftDown && positionX >= 20) {
+    } else if (leftDown && positionX >= 20) {
         positionX -= speed
         player.style.left = positionX + 'px'
-    } 
+    }
 }
 
 // MAIN GAME FUNCTION
@@ -165,16 +162,15 @@ function gameLoop() {
 
     // COLLISION
     // Count backwards incase a div from middle of array gets removed. Now the div that shifts into its spot will not be missed by the loop since it moves in a -ve direction 
-    for (let i = (bullets.length -1); i >= 0; i--) {
+    for (let i = (bullets.length - 1); i >= 0; i--) {
         // if they exit screen OR if they collide, then remove div            
         if (bullets[i].offsetTop < 0) {
             bullets[i].remove()
             bullets.splice(i, 1);
-        }
-        else {
+        } else {
             let rectBullet = bullets[i].getBoundingClientRect();
 
-            for (let j = (aliens.length -1); j >= 0; j--) {
+            for (let j = (aliens.length - 1); j >= 0; j--) {
                 // Get x, y, width, height of div holding all aliens
                 let rectAlien = aliens[j].getBoundingClientRect();
 
@@ -189,20 +185,20 @@ function gameLoop() {
                     aliens[j].remove();
                     aliens.splice(j, 1);
                     // Add animation on div removal, at position of div
-                    createExplosion(rectAlien.x + rectAlien.width/2, (rectAlien.y + window.scrollY) + rectAlien.height/2);
+                    createExplosion(rectAlien.x + rectAlien.width / 2, (rectAlien.y + window.scrollY) + rectAlien.height / 2);
                     // Aliens move faster as fewer remain during play
                     alienSpeed += 0.4;
                     // all aliens destroyed, game over
                     if (aliens.length == 0) {
                         endGame(true);
-                    }    
+                    }
                 }
             }
         }
     }
     // Aliens reach bottom, game over
     rectArea = area.getBoundingClientRect();
-    for (let j = (aliens.length -1); j >= 0; j--) {
+    for (let j = (aliens.length - 1); j >= 0; j--) {
         let rectAlien = aliens[j].getBoundingClientRect();
         if (rectArea.bottom - rectAlien.bottom < 15) {
             endGame(false);
@@ -221,8 +217,7 @@ function keyDown(e) {
     // Arrow keys press (37 = left arrow; 39 = right arrow)
     if (e.keyCode === 39) {
         rightDown = true;
-    }
-    else if (e.keyCode === 37) {
+    } else if (e.keyCode === 37) {
         leftDown = true;
     }
 
@@ -237,9 +232,9 @@ function keyDown(e) {
         }
     }
     // Shoot bullets on space bar press (key = 32)
-    if (e.keyCode === 32 && !spaceBar && gameRunning ) {
+    if (e.keyCode === 32 && !spaceBar && gameRunning) {
         spaceBar = true;
-        createBullet() 
+        createBullet()
     }
 }
 window.addEventListener('keydown', keyDown);
@@ -248,8 +243,7 @@ function keyUp(e) {
     // Arrow keys release
     if (e.keyCode === 39) {
         rightDown = false;
-    }
-    else if (e.keyCode === 37) {
+    } else if (e.keyCode === 37) {
         leftDown = false;
     }
 
@@ -290,14 +284,15 @@ function createBullet() {
 
 // CREATE ALIENS -------------
 let aliens = []
+
 function createAliens() {
     //clear alien Grid and all its children at start of each game
-    while (alienGrid.hasChildNodes()) {  
+    while (alienGrid.hasChildNodes()) {
         alienGrid.removeChild(alienGrid.firstChild);
-      } 
+    }
     aliens = [];
     //create all aliens and cells for them to be held in
-    for (let i = 0; i < 10; i++ ) {
+    for (let i = 0; i < 10; i++) {
         alien = document.createElement('div')
         cell = document.createElement('div')
         aliens.push(alien);
@@ -316,7 +311,9 @@ function createExplosion(posX, posY) {
     masterContainer.style.top = posY + 'px';
     masterContainer.classList.add('masterContainer');
     // Remove empty divs after explosion to clear memory
-    setTimeout(function(){ masterContainer.remove();}, 2000);
+    setTimeout(function () {
+        masterContainer.remove();
+    }, 2000);
 
     // Create particles
     for (let i = 0; i < 8; i++) {
@@ -325,7 +322,7 @@ function createExplosion(posX, posY) {
 
         masterContainer.appendChild(particleContainer);
         particleContainer.appendChild(particles);
-        
+
         particleContainer.classList.add('particleContainerStyle');
         particles.classList.add('particleStyle');
         particleContainer.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
