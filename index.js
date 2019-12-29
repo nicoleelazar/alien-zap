@@ -4,9 +4,13 @@ const alienGrid = document.getElementById('hold-all-aliens');
 const instructions = document.getElementById('start-screen');
 const winScreen = document.getElementById('win-screen');
 const loseScreen = document.getElementById('lose-screen');
-const startButton = document.querySelector('.start-button');
-const playButtons = document.querySelectorAll('.play-button');
+// const startButton = document.querySelector('.start-button');
+// const winButton = document.querySelector('.win-button');
+// const loseButton = document.querySelector('.lose-button');
+// const playButtons = document.querySelectorAll('.play-button');
+// const buttons = document.querySelectorAll('.button');
 const tally = document.getElementById('tally');
+const finalMessage = document.querySelector('.final-message');
 
 let rectArea = area.getBoundingClientRect();
 
@@ -33,11 +37,10 @@ let verticalMovement = 40;
 let totalVerticalMovement = 0;
 let state = 0;
 
+
+
 // Bullets --------------
 let bulletSpeed = 20;
-
-
-
 
 // ----------------------
 
@@ -71,13 +74,14 @@ function startGame() {
         alienSpeed = 5 + alienSpeedLevelup;
         runGameLoop = setInterval(gameLoop, 20);
         gameRunning = true;
-        // Start with score 0
         tally.innerHTML = playerScore;
         createAliens();
     }
 }
 
 // END THE GAME
+let win;
+
 function endGame(hasWon) {
     if (gameRunning == true) {
         clearInterval(runGameLoop);
@@ -92,15 +96,45 @@ function endGame(hasWon) {
     if (hasWon) {
         //display victory text     
         winScreen.style.transform = 'scale(1)'
-        alienSpeedLevelup += 1.6;
         updateScore();
+
+        win = true;
+
     } else {
         // display defeat text
         loseScreen.style.transform = 'scale(1)'
-        alienSpeedLevelup = 0;
-        playerScore = 0;
+        setLoseMessage();
+
+        win = false;
     }
+
 }
+
+function restartWin() {
+    alienSpeedLevelup += 1.6;
+    removeMessage();
+}
+
+function restartLose() {
+    alienSpeedLevelup = 0;
+    playerScore = 0;
+    tally.innerHTML = playerScore;
+    removeMessage();
+
+}
+
+function setLoseMessage() {
+    if (playerScore == 0) {
+        finalMessage.innerHTML = 'The Aliens got you this time, better luck next time!'
+
+    } else if (playerScore == 1) {
+        finalMessage.innerHTML = `You made it through ${playerScore} level. A good effort!`
+    } else {
+        finalMessage.innerHTML = `You made it through ${playerScore} levels. Great job!`
+    }
+
+}
+
 
 // Update the score board tally
 function updateScore() {
@@ -208,7 +242,6 @@ function gameLoop() {
 
 // ALL KEY EVENTS ---------------
 
-// Initial values for key events
 let rightDown = false;
 let leftDown = false;
 let spaceBar = false;
@@ -221,16 +254,6 @@ function keyDown(e) {
         leftDown = true;
     }
 
-    // Light up start-button with Enter key (key code = 13)
-    if (e.keyCode === 13 && gameRunning == false) {
-        startButton.classList.add('enter-key');
-    }
-    // Loop through and light up play buttons
-    for (let button of playButtons) {
-        if (e.keyCode === 13 && gameRunning == false) {
-            button.classList.add('enter-key');
-        }
-    }
     // Shoot bullets on space bar press (key = 32)
     if (e.keyCode === 32 && !spaceBar && gameRunning) {
         spaceBar = true;
@@ -238,6 +261,8 @@ function keyDown(e) {
     }
 }
 window.addEventListener('keydown', keyDown);
+
+
 
 function keyUp(e) {
     // Arrow keys release
@@ -247,17 +272,15 @@ function keyUp(e) {
         leftDown = false;
     }
 
-    // Start the game with Enter key (key code = 13), and unlight button
+    // Start the game with Enter key (key code = 13)
     if (e.keyCode === 13 && gameRunning == false) {
-        startButton.classList.remove('enter-key');
-        removeMessage()
+        removeMessage();
     }
-    // Continue the game with Enter key (key code = 13), and unlight buttons
-    for (let button of playButtons) {
-        if (e.keyCode === 13 && gameRunning == false) {
-            button.classList.remove('enter-key');
-            removeMessage()
-        }
+    // Continue the game with Enter key (key code = 13)
+    if (e.keyCode === 13 && gameRunning == false && win == true) {
+        restartWin();
+    } else if (e.keyCode === 13 && gameRunning == false && win == false) {
+        restartLose();
     }
 
     // Stops continuous firing of bullets if space bar is held down
@@ -267,6 +290,8 @@ function keyUp(e) {
 }
 window.addEventListener('keyup', keyUp);
 // -------------------------
+
+
 
 
 // CREATE BULLETS (ONLY ON SPACE BAR PRESS) ----------

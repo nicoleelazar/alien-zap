@@ -1,14 +1,22 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap');
 
 :root {
-    --c-board: rgba(239, 236, 255, 0.9);
-    --c-board-border: rgb(95, 92, 105);
-    --c-button: rgb(33, 192, 171);
-    --c-button-hover: rgb(45, 231, 206);
-    --c-text: rgb(46, 54, 61);
-    --c-text-lose: rgb(184, 28, 0);
-    --c-text-win: rgb(0, 161, 182);
-    --font-main: 'Inconsolata', monospace;
+    --c-board-border: rgb(41, 25, 35);
+    --c-board: rgba(238, 221, 240, 0.9);
+    --c-button: rgb(194, 2, 98);
+    --c-button-hover: rgb(241, 0, 121);
+    --c-text: rgb(41, 25, 35);
+    --c-text-lose: rgb(204, 53, 2);
+    --c-text-win: rgb(2, 154, 171);
+    --font-main: 'Comfortaa', cursive;
+
+}
+
+
+body {
+    background: rgb(13, 0, 10);
+    background: radial-gradient(circle, rgba(55, 33, 45, 1) 0%, rgba(13, 0, 10, 1) 100%);
+    line-height: 1.4;
 }
 
 
@@ -21,7 +29,7 @@
 #area {
     width: 800px;
     height: 580px;
-    border: solid var(--c-board-border) 4px;
+    border: solid var(--c-board-border) 6px;
     border-radius: 2px;
     background: url('./assets/space.jpg');
     background-repeat: repeat;
@@ -156,8 +164,7 @@
     color: var(--c-text);
     width: 500px;
     margin: 30px 18%;
-    border: solid var(--c-board-border) 2px;
-    border-radius: 2px;
+    border-radius: 1px;
     text-align: center;
     font-family: var(--font-main);
     z-index: 2;
@@ -170,21 +177,20 @@ li {
 }
 
 #start-screen {
-    height: 400px;
+    height: 440px;
     transform: scale(1);
 }
 
 #win-screen,
 #lose-screen {
-    height: 250px;
+    height: 300px;
     transform: scale(0);
-
+    padding: 0 20px;
 }
 
-.start-button,
-.play-button {
-    width: 190px;
-    height: 40px;
+.button {
+    width: 250px;
+    height: 50px;
     border-radius: 2px;
     margin-top: 19px;
     color: white;
@@ -197,42 +203,47 @@ li {
     transition: all 0.2s ease;
 }
 
-.play-button:hover,
-.start-button:hover {
+.button:hover {
     background: var(--c-button-hover);
+    cursor: pointer;
 
 }
 
 
-.enter-key {
+/* .enter-key {
     background: var(--c-button);
-}
+} */
 
 h1 {
-    padding-top: 10px;
+    padding-top: 4px;
 }
 
 .title {
     color: var(--c-text);
+    font-size: 38px;
 }
 
 .lose-title {
     color: var(--c-text-lose);
+    font-size: 38px;
 }
 
 .win-title {
     color: var(--c-text-win);
-
+    font-size: 38px;
 }
 
+.info {
+    font-size: 18px;
+    margin-bottom: 50px;
+}
 
 .score-board {
-    width: 120px;
-    height: 90px;
+    width: 150px;
+    height: 100px;
     margin-right: 5px;
     background: var(--c-board);
     color: var(--c-text);
-    border: solid var(--c-board-border) 2px;
     border-radius: 2px;
     text-align: left;
     font-family: var(--font-main);
@@ -242,7 +253,7 @@ h1 {
 }
 
 .score-text {
-    margin: 8px 0;
+    margin: 10px 0;
     font-size: 18px;
 
 }

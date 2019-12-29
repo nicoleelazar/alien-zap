@@ -29,19 +29,20 @@
                     <li><strong>Space Bar</strong> - shoots</li>
                 </ul>
                 <p>Click the button or press the Enter key to start.<br>Good Luck!</p>
-                <button id="button" type="button" class="start-button" onclick='removeMessage()'>Play!</button>
+                <button type="button" class="button" onclick='removeMessage()'>Play!</button>
             </div>
 
             <div id="win-screen">
                 <h1 class="win-title">Winner!</h1>
-                <p>Well done, you defeated all the Aliens!</p>
-                <button type="button" class="play-button" onclick='removeMessage()'>Next Round</button>
+                <p class="info">Well done, time to level up!</p>
+                <button type="button" class="button" onclick='restartWin()'>Next Round</button>
             </div>
 
             <div id="lose-screen">
                 <h1 class="lose-title">Game Over</h1>
-                <p>The Aliens got you this time, better luck next time!</p>
-                <button type="button" class="play-button" onclick='removeMessage()'>Play Again</button>
+                <p class="info final-message"></p>
+                <!-- The Aliens got you this time, better luck next time! -->
+                <button type="button" class="button" onclick='restartLose()'>Play Again</button>
             </div>
 
             <div id="hold-all-aliens"></div>
