@@ -4,11 +4,6 @@ const alienGrid = document.getElementById('hold-all-aliens');
 const instructions = document.getElementById('start-screen');
 const winScreen = document.getElementById('win-screen');
 const loseScreen = document.getElementById('lose-screen');
-// const startButton = document.querySelector('.start-button');
-// const winButton = document.querySelector('.win-button');
-// const loseButton = document.querySelector('.lose-button');
-// const playButtons = document.querySelectorAll('.play-button');
-// const buttons = document.querySelectorAll('.button');
 const tally = document.getElementById('tally');
 const finalMessage = document.querySelector('.final-message');
 
@@ -51,7 +46,7 @@ let gameRunning = false;
 // CLEAR MSG ON START BUTTON CLICK 
 let delayStart;
 
-function removeMessage() {
+function continueGame() {
     instructions.style.transform = 'scale(0)'
     winScreen.style.transform = 'scale(0)'
     loseScreen.style.transform = 'scale(0)'
@@ -59,7 +54,7 @@ function removeMessage() {
     delayStart = setTimeout(startGame, 500);
 }
 
-//START THE GAME
+//START THE GAME -------------------
 let runGameLoop;
 
 function startGame() {
@@ -79,7 +74,7 @@ function startGame() {
     }
 }
 
-// END THE GAME
+// END THE GAME --------------------
 let win;
 
 function endGame(hasWon) {
@@ -110,17 +105,17 @@ function endGame(hasWon) {
 
 }
 
+// Customised game continuation & messages
 function restartWin() {
     alienSpeedLevelup += 1.6;
-    removeMessage();
+    continueGame();
 }
 
 function restartLose() {
     alienSpeedLevelup = 0;
     playerScore = 0;
     tally.innerHTML = playerScore;
-    removeMessage();
-
+    continueGame();
 }
 
 function setLoseMessage() {
@@ -274,7 +269,7 @@ function keyUp(e) {
 
     // Start the game with Enter key (key code = 13)
     if (e.keyCode === 13 && gameRunning == false) {
-        removeMessage();
+        continueGame();
     }
     // Continue the game with Enter key (key code = 13)
     if (e.keyCode === 13 && gameRunning == false && win == true) {
